@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capitare</title>
+<style>
+  :root {
+    --bg: #0b0e14;
+    --bg-alt: #11151d;
+    --accent: #4f8cff;
+    --text: #eef1f6;
+    --text-dim: #a4acba;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 8%;
+    border-bottom: 1px solid #1e2430;
+  }
+  .logo { font-weight: 700; font-size: 1.3rem; letter-spacing: 0.5px; }
+  nav a {
+    color: var(--text-dim);
+    text-decoration: none;
+    margin-left: 32px;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--text); }
+  .hero {
+    padding: 120px 8% 100px;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, #fff, var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero p {
+    font-size: 1.15rem;
+    color: var(--text-dim);
+    margin-bottom: 40px;
+  }
+  .cta {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    padding: 14px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(79,140,255,0.35); }
+  section.features {
+    padding: 80px 8%;
+    background: var(--bg-alt);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .card {
+    background: var(--bg);
+    border: 1px solid #1e2430;
+    border-radius: 12px;
+    padding: 32px;
+  }
+  .card h3 { margin-bottom: 12px; font-size: 1.1rem; }
+  .card p { color: var(--text-dim); font-size: 0.95rem; }
+  footer {
+    text-align: center;
+    padding: 40px 8%;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Capitare</div>
+  <nav>
+    <a href="#produto">Produto</a>
+    <a href="#time">Time</a>
+    <a href="#contato">Contato</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Em construção</h1>
+  <p>Esta é uma página placeholder — o conteúdo definitivo entra aqui em seguida. Já está no ar e pronta para receber os ajustes.</p>
+  <a class="cta" href="#produto">Ver mais</a>
+</section>
+
+<section class="features" id="produto">
+  <div class="grid">
+    <div class="card">
+      <h3>Seção 1</h3>
+      <p>Substitua por uma descrição real do produto ou serviço.</p>
+    </div>
+    <div class="card">
+      <h3>Seção 2</h3>
+      <p>Espaço para destacar diferenciais ou resultados.</p>
+    </div>
+    <div class="card">
+      <h3>Seção 3</h3>
+      <p>Espaço para chamada final ou informações de contato.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  &copy; 2026 Capitare. Todos os direitos reservados.
+</footer>
+
+</body>
+</html>
