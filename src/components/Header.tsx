@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 
 const NAV_LINKS = [
@@ -23,13 +24,19 @@ export default function Header() {
       <div className="px-7 md:px-13 lg:px-20">
         <div className="max-w-[1140px] m-auto">
           <div className="flex items-center gap-x-8 *:flex-1 *:basis-0">
-            {/* TODO: swap for the real Capitare logo asset */}
             <Link
               href="/"
               className="flex items-center transition hover:opacity-50"
               onClick={() => setMenuOpen(false)}
             >
-              <span className="text-xl font-bold text-grey0">Capitare</span>
+              <Image
+                src="/logo.png"
+                alt="Capitare"
+                width={166}
+                height={36}
+                priority
+                className="h-9 w-auto"
+              />
             </Link>
 
             <div className="flex md:hidden justify-end">

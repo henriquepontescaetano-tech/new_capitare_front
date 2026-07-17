@@ -39,7 +39,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="w-full sm:max-md:mb-6 md:max-lg:mb-20 md:w-[55%] md:translate-x-5 xl:translate-y-3">
+        <div className="w-[calc(100%+3.5rem)] -mx-7 md:w-[55%] md:mx-0 sm:max-md:mb-6 md:max-lg:mb-20 md:translate-x-5 xl:translate-y-3">
           <FlowEmbed />
         </div>
       </div>
