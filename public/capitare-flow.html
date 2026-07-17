@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capitare – Flow Animation</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: transparent;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+}
+
+.scene {
+  position: relative;
+  width: 1105px;
+  height: 780px;
+}
+
+.dot-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, #b0bcf0 1.1px, transparent 1.1px);
+  background-size: 22px 22px;
+  opacity: 0.5;
+  border-radius: 24px;
+}
+
+.lines-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* ── Generic card ── */
+.card {
+  position: absolute;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 14px rgba(60,80,200,0.09), 0 1px 3px rgba(60,80,200,0.06);
+  border: 1.5px solid rgba(180,195,245,0.4);
+}
+
+/* ── Originador ── */
+.card-orig {
+  left: 4px; top: 56px;
+  width: 190px;
+  padding: 20px 16px;
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+.card-orig .big-icon { font-size: 38px; }
+.card-orig .lbl { font-size: 18px; font-weight: 700; color: #2d3480; text-align: center; }
+.card-orig .sub { font-size: 15.5px; color: #8890c4; text-align: center; line-height: 1.4; }
+
+/* ── Token/Ativo ── */
+.card-token {
+  left: 280px; top: 32px;
+  width: 275px;
+  padding: 20px 16px 16px;
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
+.icons-row { display: flex; gap: 10px; }
+.icon-box {
+  width: 50px; height: 50px;
+  background: #eef2ff; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 25px;
+}
+.card-token .lbl { font-size: 18px; font-weight: 700; color: #2d3480; }
+.card-token .sub { font-size: 15.5px; color: #8890c4; }
+
+/* ── Investidores cluster ── */
+.card-investors {
+  left: 4px; top: 310px;
+  width: 190px; height: 190px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 8px; padding: 8px;
+}
+.inv-cell {
+  background: #f5f7ff; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+}
+.inv-cell:hover { background: #eaedff; }
+
+/* ── Right management cards ── */
+.card-right {
+  left: 771px;
+  width: 300px;
+  padding: 16px 18px;
+  display: flex; align-items: center; gap: 12px;
+}
+.card-right .r-icon {
+  width: 44px; height: 44px; flex-shrink: 0;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 23px;
+}
+.card-right .r-text .r-lbl { font-size: 18px; font-weight: 700; color: #2d3480; }
+.card-right .r-text .r-sub { font-size: 15.5px; color: #8890c4; margin-top: 2px; }
+
+/* ── Engine (center main card) ── */
+.card-engine {
+  left: 265px; top: 270px;
+  width: 430px;
+  padding: 26px 22px 18px;
+}
+.engine-header {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 18px;
+}
+.engine-header .e-icon {
+  width: 44px; height: 44px; background: #3b5bdb22;
+  border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 24px;
+}
+.engine-header .e-title { font-size: 18px; font-weight: 800; color: #1e2460; line-height: 1.25; }
+.engine-header .e-sub { font-size: 15.5px; color: #8890c4; }
+.engine-header .e-badge {
+  margin-left: auto;
+  background: #dcfce7; color: #16a34a;
+  font-size: 13px; font-weight: 700;
+  padding: 4px 10px; border-radius: 20px;
+  display: flex; align-items: center; gap: 5px;
+}
+.engine-header .e-badge::before {
+  content: ''; width: 6px; height: 6px;
+  background: #16a34a; border-radius: 50%;
+  display: inline-block;
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+.engine-body { display: flex; gap: 18px; }
+
+/* PU mini chart */
+.pu-chart-wrap { flex: 1; }
+.pu-label { font-size: 12.5px; font-weight: 700; color: #8890c4; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+.pu-value { font-size: 26px; font-weight: 800; color: #1e2460; line-height: 1; margin-bottom: 7px; }
+.pu-delta { font-size: 14px; font-weight: 700; color: #16a34a; }
+canvas#puChart { width: 100%; height: 56px; display: block; }
+
+/* Distribution bars */
+.distrib-wrap { width: 160px; flex-shrink: 0; }
+.dist-bar-row { display: flex; flex-direction: column; gap: 6px; }
+.dist-item { }
+.dist-name { font-size: 12.5px; color: #8890c4; font-weight: 600; margin-bottom: 3px; }
+.dist-track { height: 8px; background: #eef0ff; border-radius: 4px; overflow: hidden; }
+.dist-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
+
+/* ── Blockchain / Wallet strip ── */
+.bc-strip {
+  position: absolute;
+  left: 265px; top: 560px;
+  width: 430px;
+  display: flex; gap: 14px;
+}
+.wallet-node {
+  flex: 1;
+  background: #fff;
+  border: 1.5px solid rgba(180,195,245,0.4);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(60,80,200,0.07);
+  padding: 14px 11px;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.wallet-node .w-icon { font-size: 22px; }
+.wallet-node .w-lbl { font-size: 18px; font-weight: 700; color: #2d3480; text-align: center; line-height: 1.25; }
+.wallet-node .w-addr {
+  font-size: 15.5px; color: #a0a8d8;
+  font-family: monospace;
+  background: #f0f3ff; padding: 3px 8px; border-radius: 4px;
+}
+.wallet-node.active { border-color: rgba(59,91,219,0.35); box-shadow: 0 2px 10px rgba(59,91,219,0.12); }
+
+/* ── Port connectors ── */
+.port {
+  position: absolute;
+  width: 12px; height: 12px;
+  border-radius: 2px;
+  background: #c7d0f8;
+  border: 2px solid #a0aee8;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+/* ── Line floating icons ── */
+.line-icon {
+  position: absolute;
+  width: 34px; height: 34px;
+  background: #fff; border-radius: 50%;
+  border: 1.5px solid rgba(180,195,245,0.6);
+  box-shadow: 0 2px 8px rgba(60,80,200,0.12);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+@keyframes blink {
+  0%,100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* Float animation on cards */
+.card-orig, .card-token, .card-investors { animation: float 5s ease-in-out infinite; }
+.card-token { animation-delay: -1s; }
+.card-investors { animation-delay: -2.5s; }
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+</style>
+</head>
+<body>
+<div class="scene">
+  <div class="dot-grid"></div>
+
+  <!-- SVG layer -->
+  <svg class="lines-svg" id="svg"></svg>
+
+  <!-- Originador -->
+  <div class="card card-orig">
+    <div class="big-icon">🏢</div>
+    <span class="lbl">Originador</span>
+    <span class="sub">Emissão de ativos tokenizados</span>
+  </div>
+
+  <!-- Token / Ativo -->
+  <div class="card card-token">
+    <div class="icons-row">
+      <div class="icon-box">🪙</div>
+      <div class="icon-box">📋</div>
+      <div class="icon-box">⛓</div>
+    </div>
+    <span class="lbl">Ativo Tokenizado</span>
+    <span class="sub">ERC-20 · Smart Contract · On-chain</span>
+  </div>
+
+  <!-- Investidores -->
+  <div class="card card-investors">
+    <div class="inv-cell">👤</div>
+    <div class="inv-cell">👥</div>
+    <div class="inv-cell">🏦</div>
+    <div class="inv-cell">💼</div>
+  </div>
+
+  <!-- Engine -->
+  <div class="card card-engine" id="engineCard">
+    <div class="engine-header">
+      <div class="e-icon">⚙️</div>
+      <div>
+        <div class="e-title">Capitare Engine</div>
+        <div class="e-sub">Gestão on-chain em tempo real</div>
+      </div>
+      <div class="e-badge">Ativo</div>
+    </div>
+    <div class="engine-body">
+      <div class="pu-chart-wrap">
+        <div class="pu-label">PU Atual</div>
+        <div class="pu-value" id="puVal">R$ 1.048,50</div>
+        <div class="pu-delta" id="puDelta">▲ +0,85% hoje</div>
+        <canvas id="puChart" width="210" height="56"></canvas>
+      </div>
+      <div class="distrib-wrap">
+        <div class="pu-label" style="margin-bottom:8px">Distribuição</div>
+        <div class="dist-bar-row" id="distBars"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right cards -->
+  <div class="card card-right" id="cr-cal" style="top:32px;">
+    <div class="r-icon" style="background:#eef2ff">📅</div>
+    <div class="r-text">
+      <div class="r-lbl">Calendário de Pagamentos</div>
+      <div class="r-sub">Datas, cupons e vencimentos</div>
+    </div>
+  </div>
+  <div class="card card-right" id="cr-dist" style="top:162px;">
+    <div class="r-icon" style="background:#f0fdf4">💸</div>
+    <div class="r-text">
+      <div class="r-lbl">Distribuição de Capital</div>
+      <div class="r-sub">Pro-rata por token holdings</div>
+    </div>
+  </div>
+  <div class="card card-right" id="cr-amort" style="top:292px;">
+    <div class="r-icon" style="background:#fff7ed">📉</div>
+    <div class="r-text">
+      <div class="r-lbl">Amortizações</div>
+      <div class="r-sub">Price, par e extraordinary</div>
+    </div>
+  </div>
+  <div class="card card-right" id="cr-pu" style="top:422px;">
+    <div class="r-icon" style="background:#fdf4ff">📊</div>
+    <div class="r-text">
+      <div class="r-lbl">Controle de PU</div>
+      <div class="r-sub">Preço unitário on-chain</div>
+    </div>
+  </div>
+
+  <!-- Blockchain wallet strip -->
+  <div class="bc-strip" id="bcStrip">
+    <div class="wallet-node active" id="w-investor">
+      <div class="w-icon">👛</div>
+      <div class="w-lbl">Carteira Investidor</div>
+      <div class="w-addr">0x3f4a…c9d2</div>
+    </div>
+    <div class="wallet-node" id="w-custody">
+      <div class="w-icon">🔐</div>
+      <div class="w-lbl">Custódia On-Chain</div>
+      <div class="w-addr">0x8b12…44ef</div>
+    </div>
+    <div class="wallet-node" id="w-blockchain">
+      <div class="w-icon">🔗</div>
+      <div class="w-lbl">Nó Blockchain</div>
+      <div class="w-addr">block #19.482.301</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ──────────────────────────────────────────────
+// PU Chart (mini sparkline)
+// ──────────────────────────────────────────────
+const puCanvas = document.getElementById('puChart');
+const puCtx = puCanvas.getContext('2d');
+puCanvas.width = 210; puCanvas.height = 56;
+
+let puPoints = Array.from({length: 28}, (_, i) => 0.45 + Math.sin(i * 0.4) * 0.2 + Math.random() * 0.15);
+const puValEl = document.getElementById('puVal');
+const puDeltaEl = document.getElementById('puDelta');
+let basePU = 1048.50;
+
+function drawPU() {
+  const w = puCanvas.width, h = puCanvas.height;
+  puCtx.clearRect(0,0,w,h);
+
+  const min = Math.min(...puPoints);
+  const max = Math.max(...puPoints);
+  const range = max - min || 1;
+
+  const pts = puPoints.map((v, i) => ({
+    x: (i / (puPoints.length - 1)) * w,
+    y: h - 6 - ((v - min) / range) * (h - 12),
+  }));
+
+  // Gradient fill
+  const grad = puCtx.createLinearGradient(0,0,0,h);
+  grad.addColorStop(0, 'rgba(59,91,219,0.18)');
+  grad.addColorStop(1, 'rgba(59,91,219,0)');
+  puCtx.beginPath();
+  puCtx.moveTo(pts[0].x, h);
+  pts.forEach(p => puCtx.lineTo(p.x, p.y));
+  puCtx.lineTo(pts[pts.length-1].x, h);
+  puCtx.closePath();
+  puCtx.fillStyle = grad;
+  puCtx.fill();
+
+  // Line
+  puCtx.beginPath();
+  pts.forEach((p,i) => i === 0 ? puCtx.moveTo(p.x,p.y) : puCtx.lineTo(p.x,p.y));
+  puCtx.strokeStyle = '#3b5bdb';
+  puCtx.lineWidth = 1.8;
+  puCtx.lineJoin = 'round';
+  puCtx.stroke();
+
+  // Last dot
+  const last = pts[pts.length-1];
+  puCtx.beginPath();
+  puCtx.arc(last.x, last.y, 3, 0, Math.PI*2);
+  puCtx.fillStyle = '#3b5bdb';
+  puCtx.fill();
+  puCtx.beginPath();
+  puCtx.arc(last.x, last.y, 5, 0, Math.PI*2);
+  puCtx.fillStyle = 'rgba(59,91,219,0.2)';
+  puCtx.fill();
+}
+
+function updatePU() {
+  const delta = (Math.random() - 0.47) * 1.2;
+  basePU += delta;
+  puPoints.push(0.45 + Math.random() * 0.45);
+  if (puPoints.length > 28) puPoints.shift();
+  puValEl.textContent = 'R$ ' + basePU.toFixed(2).replace('.', ',');
+  const pct = (delta / basePU * 100);
+  puDeltaEl.textContent = (pct >= 0 ? '▲ +' : '▼ ') + pct.toFixed(2).replace('.', ',') + '% hoje';
+  puDeltaEl.style.color = pct >= 0 ? '#16a34a' : '#dc2626';
+  drawPU();
+}
+drawPU();
+setInterval(updatePU, 1400);
+
+// ──────────────────────────────────────────────
+// Distribution bars
+// ──────────────────────────────────────────────
+const DIST_ITEMS = [
+  { name: 'Juros Mensais',     color: '#3b5bdb', pct: 78 },
+  { name: 'Amortização',       color: '#0ea5e9', pct: 55 },
+  { name: 'Correção Monetária',color: '#10b981', pct: 90 },
+  { name: 'Remuneração Extra', color: '#f59e0b', pct: 40 },
+];
+const distWrap = document.getElementById('distBars');
+DIST_ITEMS.forEach(item => {
+  const row = document.createElement('div');
+  row.className = 'dist-item';
+  row.innerHTML = `
+    <div class="dist-name">${item.name}</div>
+    <div class="dist-track"><div class="dist-fill" style="width:${item.pct}%;background:${item.color}"></div></div>
+  `;
+  distWrap.appendChild(row);
+});
+function animateDist() {
+  document.querySelectorAll('.dist-fill').forEach((el, i) => {
+    el.style.width = (25 + Math.random() * 70) + '%';
+  });
+}
+setInterval(animateDist, 2000);
+
+// ──────────────────────────────────────────────
+// SVG Lines + Particles
+// ──────────────────────────────────────────────
+const svg = document.getElementById('svg');
+const scene = document.querySelector('.scene');
+
+// Defs (glow + animated dash)
+const defs = document.createElementNS('http://www.w3.org/2000/svg','defs');
+defs.innerHTML = `
+  <filter id="glow">
+    <feGaussianBlur stdDeviation="2.5" result="blur"/>
+    <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <marker id="dot-marker" viewBox="0 0 6 6" refX="3" refY="3" markerWidth="6" markerHeight="6">
+    <circle cx="3" cy="3" r="2.2" fill="#3b5bdb" opacity="0.5"/>
+  </marker>
+`;
+svg.prepend(defs);
+
+// Color palette
+const C_BLUE  = '#3b5bdb';
+const C_GREEN = '#10b981';
+const C_SKY   = '#0ea5e9';
+const C_AMBER = '#f59e0b';
+const C_GRAY  = '#9aa5d4';
+
+// ──────────────────────────────────────────────
+// Connector coordinates: measured live from the actual
+// rendered card positions (not hardcoded), so the lines
+// always line up correctly no matter how big the cards/fonts are.
+// ──────────────────────────────────────────────
+function rel(el) {
+  const r = el.getBoundingClientRect();
+  const s = scene.getBoundingClientRect();
+  return {
+    left: r.left - s.left,
+    right: r.right - s.left,
+    top: r.top - s.top,
+    bottom: r.bottom - s.top,
+    cx: r.left - s.left + r.width / 2,
+    cy: r.top - s.top + r.height / 2,
+  };
+}
+
+const orig = rel(document.querySelector('.card-orig'));
+const token = rel(document.querySelector('.card-token'));
+const invest = rel(document.querySelector('.card-investors'));
+const engine = rel(document.getElementById('engineCard'));
+
+// Push the wallet strip further below the engine card with a fixed, generous gap
+const WALLET_GAP = 60;
+document.getElementById('bcStrip').style.top = (engine.bottom + WALLET_GAP) + 'px';
+
+const crCal = rel(document.getElementById('cr-cal'));
+const crDist = rel(document.getElementById('cr-dist'));
+const crAmort = rel(document.getElementById('cr-amort'));
+const crPu = rel(document.getElementById('cr-pu'));
+const wInvestor = rel(document.getElementById('w-investor'));
+const wCustody = rel(document.getElementById('w-custody'));
+const wBlockchain = rel(document.getElementById('w-blockchain'));
+
+const trunkX = engine.right + 36;
+const bendX1 = orig.right + 30;
+const topBendY = 10;
+
+const PATHS = [
+  // 1. Originador right → Token left
+  { d: `M ${orig.right},${orig.cy} L ${bendX1},${orig.cy} L ${bendX1},${token.cy} L ${token.left},${token.cy}`,
+    color: C_BLUE, ports: [[bendX1, orig.cy],[bendX1, token.cy]],
+    icon: { x: bendX1, y: orig.cy, e: '🏢' } },
+
+  // 2. Token bottom-center → Engine top-center
+  { d: `M ${token.cx},${token.bottom} L ${token.cx},${engine.top}`,
+    color: C_BLUE, ports: [[token.cx, token.bottom],[token.cx, engine.top]], icon: null },
+
+  // 3. Investidores right → Engine left-center
+  { d: `M ${invest.right},${invest.cy} L ${engine.left},${invest.cy}`,
+    color: C_SKY, ports: [[invest.right, invest.cy],[engine.left, invest.cy]],
+    icon: { x: invest.right + (engine.left - invest.right) / 2, y: invest.cy, e: '💰' } },
+
+  // 4. Investidores top → up and over → Token left
+  { d: `M ${invest.cx},${invest.top} L ${invest.cx},${topBendY} L ${token.cx},${topBendY} L ${token.cx},${token.top}`,
+    color: C_SKY, ports: [[invest.cx, topBendY],[token.cx, topBendY]], icon: null },
+
+  // 5. Engine right → trunk
+  { d: `M ${engine.right},${engine.cy} L ${trunkX},${engine.cy} L ${trunkX},${crCal.cy} L ${crCal.left},${crCal.cy}`,
+    color: C_BLUE, ports: [[trunkX, engine.cy]], icon: null },
+
+  // 6. trunk → Distribuição
+  { d: `M ${trunkX},${crDist.cy} L ${crDist.left},${crDist.cy}`,
+    color: C_GREEN, ports: [[crDist.left, crDist.cy]], icon: null },
+
+  // 7. trunk → Amortizações
+  { d: `M ${trunkX},${crAmort.cy} L ${crAmort.left},${crAmort.cy}`,
+    color: C_SKY, ports: [[crAmort.left, crAmort.cy]], icon: null },
+
+  // 8. trunk → Controle PU
+  { d: `M ${trunkX},${crPu.cy} L ${crPu.left},${crPu.cy}`,
+    color: C_AMBER, ports: [[crPu.left, crPu.cy]], icon: null },
+
+  // 9. Engine bottom → Wallet nodes
+  { d: `M ${wInvestor.cx},${engine.bottom} L ${wInvestor.cx},${wInvestor.top}`,
+    color: C_GRAY, ports: [[wInvestor.cx, wInvestor.top]], icon: null },
+  { d: `M ${wCustody.cx},${engine.bottom} L ${wCustody.cx},${wCustody.top}`,
+    color: C_GRAY, ports: [[wCustody.cx, wCustody.top]], icon: null },
+  { d: `M ${wBlockchain.cx},${engine.bottom} L ${wBlockchain.cx},${wBlockchain.top}`,
+    color: C_GRAY, ports: [[wBlockchain.cx, wBlockchain.top]], icon: null },
+];
+
+// Trunk vertical line (shared, spans the 4 right cards)
+const trunkPath = { d: `M ${trunkX},${crCal.cy} L ${trunkX},${crPu.cy}`, color: C_GRAY };
+
+function addPath(def, opts = {}) {
+  const el = document.createElementNS('http://www.w3.org/2000/svg','path');
+  el.setAttribute('d', def.d);
+  el.setAttribute('fill', 'none');
+  el.setAttribute('stroke', def.color || C_GRAY);
+  el.setAttribute('stroke-width', opts.width || '1.7');
+  el.setAttribute('stroke-linecap', 'round');
+  el.setAttribute('stroke-linejoin', 'round');
+  svg.appendChild(el);
+
+  if (!opts.noAnim) {
+    const len = el.getTotalLength() || 200;
+    el.style.strokeDasharray = len;
+    el.style.strokeDashoffset = len;
+    const delay = (opts.delay || 0) + Math.random() * 200;
+    setTimeout(() => {
+      el.style.transition = `stroke-dashoffset ${600 + Math.random()*300}ms cubic-bezier(0.4,0,0.2,1)`;
+      el.style.strokeDashoffset = 0;
+    }, delay);
+  }
+  return el;
+}
+
+addPath(trunkPath);
+PATHS.forEach((def, i) => addPath(def, { delay: i * 80 }));
+
+// ── Particles ──
+function makeParticle(pathDef, color, speed) {
+  const refEl = document.createElementNS('http://www.w3.org/2000/svg','path');
+  refEl.setAttribute('d', pathDef.d);
+  refEl.setAttribute('fill','none');
+  refEl.setAttribute('stroke','none');
+  svg.appendChild(refEl);
+
+  const circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
+  circle.setAttribute('r','3.2');
+  circle.setAttribute('fill', color || pathDef.color);
+  circle.setAttribute('filter','url(#glow)');
+  svg.appendChild(circle);
+
+  const trail = document.createElementNS('http://www.w3.org/2000/svg','circle');
+  trail.setAttribute('r','1.8');
+  trail.setAttribute('fill', color || pathDef.color);
+  trail.setAttribute('opacity','0.35');
+  svg.appendChild(trail);
+
+  let t = Math.random();
+  const spd = speed || (0.0015 + Math.random() * 0.002);
+
+  function tick() {
+    const total = refEl.getTotalLength();
+    if (!total) { requestAnimationFrame(tick); return; }
+    t = (t + spd) % 1;
+    const pt = refEl.getPointAtLength(t * total);
+    const pt2 = refEl.getPointAtLength(Math.max(0,(t-0.05)) * total);
+    circle.setAttribute('cx', pt.x); circle.setAttribute('cy', pt.y);
+    trail.setAttribute('cx', pt2.x); trail.setAttribute('cy', pt2.y);
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+const particleColors = [C_BLUE, C_GREEN, C_SKY, C_BLUE, C_BLUE, C_GREEN, C_SKY, C_AMBER, C_GRAY, C_GRAY, C_GRAY];
+setTimeout(() => {
+  PATHS.forEach((def, i) => {
+    const count = [0,1,2,3,4].includes(i) ? 2 : 1;
+    for(let j=0;j<count;j++) makeParticle(def, particleColors[i]);
+  });
+}, 800);
+
+// ── DOM ports + line icons ──
+PATHS.forEach(def => {
+  (def.ports||[]).forEach(([x,y]) => {
+    const p = document.createElement('div');
+    p.className = 'port';
+    p.style.left = x+'px'; p.style.top = y+'px';
+    scene.appendChild(p);
+  });
+  if(def.icon) {
+    const ic = document.createElement('div');
+    ic.className = 'line-icon';
+    ic.style.left = def.icon.x+'px'; ic.style.top = def.icon.y+'px';
+    ic.textContent = def.icon.e;
+    scene.appendChild(ic);
+  }
+});
+</script>
+</body>
+</html>

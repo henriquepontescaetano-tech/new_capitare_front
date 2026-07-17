@@ -1,8 +1,27 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f7f9fc;
+  --foreground: #020112;
+
+  --primary: #1855ff;
+
+  --grey0: #020112;
+  --grey1: #d9d9d9;
+  --grey2: #61607f;
+  --grey3: #dee9f9;
+  --grey4: #d6dce5;
+  --grey5: #e6eaf2;
+  --grey6: #ecf0f6;
+  --grey7: #87869a;
+  --grey8: #d9d9d933;
+  --grey9: #807f94;
+
+  --blue0: #527fff;
+  --blue1: #133db5;
+  --blue2: #1c52ff;
+  --blue3: #2b63ff1a;
+  --blue4: #2b63ff;
 }
 
 @theme inline {
@@ -10,17 +29,28 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-primary: var(--primary);
+
+  --color-grey0: var(--grey0);
+  --color-grey1: var(--grey1);
+  --color-grey2: var(--grey2);
+  --color-grey3: var(--grey3);
+  --color-grey4: var(--grey4);
+  --color-grey5: var(--grey5);
+  --color-grey6: var(--grey6);
+  --color-grey7: var(--grey7);
+  --color-grey8: var(--grey8);
+  --color-grey9: var(--grey9);
+
+  --color-blue0: var(--blue0);
+  --color-blue1: var(--blue1);
+  --color-blue2: var(--blue2);
+  --color-blue3: var(--blue3);
+  --color-blue4: var(--blue4);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }
