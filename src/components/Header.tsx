@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -40,11 +41,12 @@ export default function Header() {
             </Link>
 
             <div className="flex md:hidden justify-end">
-              <button
+              <motion.button
                 type="button"
                 aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
                 aria-expanded={menuOpen}
                 onClick={() => setMenuOpen((open) => !open)}
+                whileTap={{ scale: 0.9 }}
                 className="cursor-pointer flex items-center justify-center"
               >
                 <svg
@@ -72,7 +74,7 @@ export default function Header() {
                     </>
                   )}
                 </svg>
-              </button>
+              </motion.button>
             </div>
 
             <div className="hidden md:flex justify-center">
@@ -93,52 +95,72 @@ export default function Header() {
             </div>
 
             <div className="gap-3 hidden md:flex justify-end">
-              <a href="#" className={outlineButtonClasses}>
+              <motion.a
+                href="#"
+                className={outlineButtonClasses}
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+              >
                 Contact Us
-              </a>
-              <a href="#" className={solidButtonClasses}>
+              </motion.a>
+              <motion.a
+                href="#"
+                className={solidButtonClasses}
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+              >
                 Trade
-              </a>
+              </motion.a>
             </div>
           </div>
         </div>
       </div>
 
-      {menuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 z-50 bg-background border-t border-grey5 shadow-lg px-7 py-6">
-          <nav aria-label="Main mobile">
-            <ul className="flex flex-col gap-1">
-              {NAV_LINKS.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    onClick={() => setMenuOpen(false)}
-                    className="block font-semibold text-grey0 text-base rounded-sm px-2 py-3 transition-all hover:bg-grey6"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <div className="flex flex-col gap-3 mt-4">
-            <a
-              href="#"
-              onClick={() => setMenuOpen(false)}
-              className={`${outlineButtonClasses} w-full h-11`}
-            >
-              Contact Us
-            </a>
-            <a
-              href="#"
-              onClick={() => setMenuOpen(false)}
-              className={`${solidButtonClasses} w-full h-11`}
-            >
-              Trade
-            </a>
-          </div>
-        </div>
-      )}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className="md:hidden absolute top-full left-0 right-0 z-50 bg-background border-t border-grey5 shadow-lg px-7 py-6"
+          >
+            <nav aria-label="Main mobile">
+              <ul className="flex flex-col gap-1">
+                {NAV_LINKS.map((link) => (
+                  <li key={link.label}>
+                    <a
+                      href={link.href}
+                      onClick={() => setMenuOpen(false)}
+                      className="block font-semibold text-grey0 text-base rounded-sm px-2 py-3 transition-all hover:bg-grey6"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            <div className="flex flex-col gap-3 mt-4">
+              <motion.a
+                href="#"
+                onClick={() => setMenuOpen(false)}
+                whileTap={{ scale: 0.96 }}
+                className={`${outlineButtonClasses} w-full h-11`}
+              >
+                Contact Us
+              </motion.a>
+              <motion.a
+                href="#"
+                onClick={() => setMenuOpen(false)}
+                whileTap={{ scale: 0.96 }}
+                className={`${solidButtonClasses} w-full h-11`}
+              >
+                Trade
+              </motion.a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
