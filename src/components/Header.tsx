@@ -8,14 +8,13 @@ import Link from "next/link";
 const NAV_LINKS = [
   { label: "Trade", href: "#" },
   { label: "Explorer", href: "#" },
-  { label: "API Docs", href: "#" },
 ];
 
 const outlineButtonClasses =
   "cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-semibold transition-all border border-grey1 text-grey0 bg-background shadow-xs hover:bg-grey3 active:bg-grey0 active:text-white h-9 px-4 py-[6px] rounded-full";
 
 const solidButtonClasses =
-  "cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-semibold transition-all bg-primary text-white hover:bg-blue0 active:bg-blue1 h-9 px-4 py-[6px] rounded-full w-[96px]";
+  "cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-semibold transition-all bg-primary text-white hover:bg-blue0 active:bg-blue1 h-9 px-4 py-[6px] rounded-full";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -101,7 +100,7 @@ export default function Header() {
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
               >
-                Contact Us
+                Como funciona
               </motion.a>
               <motion.a
                 href="#"
@@ -109,7 +108,7 @@ export default function Header() {
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.96 }}
               >
-                Trade
+                Falar com a Capitare
               </motion.a>
             </div>
           </div>
@@ -147,7 +146,7 @@ export default function Header() {
                 whileTap={{ scale: 0.96 }}
                 className={`${outlineButtonClasses} w-full h-11`}
               >
-                Contact Us
+                Como funciona
               </motion.a>
               <motion.a
                 href="#"
@@ -155,7 +154,7 @@ export default function Header() {
                 whileTap={{ scale: 0.96 }}
                 className={`${solidButtonClasses} w-full h-11`}
               >
-                Trade
+                Falar com a Capitare
               </motion.a>
             </div>
           </motion.div>

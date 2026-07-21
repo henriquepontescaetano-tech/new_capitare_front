@@ -25,7 +25,7 @@ body {
 .dot-grid {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, #b0bcf0 1.1px, transparent 1.1px);
+  background-image: radial-gradient(circle, #c7cbd6 1.1px, transparent 1.1px);
   background-size: 22px 22px;
   opacity: 0.5;
   border-radius: 24px;
@@ -45,8 +45,8 @@ body {
   position: absolute;
   background: #fff;
   border-radius: 16px;
-  box-shadow: 0 2px 14px rgba(60,80,200,0.09), 0 1px 3px rgba(60,80,200,0.06);
-  border: 1.5px solid rgba(180,195,245,0.4);
+  box-shadow: 0 2px 14px rgba(24,85,255,0.10), 0 1px 3px rgba(24,85,255,0.06);
+  border: 1.5px solid rgba(24,85,255,0.3);
 }
 
 /* ── Originador ── */
@@ -56,9 +56,9 @@ body {
   padding: 20px 16px;
   display: flex; flex-direction: column; align-items: center; gap: 10px;
 }
-.card-orig .big-icon { font-size: 38px; }
-.card-orig .lbl { font-size: 18px; font-weight: 700; color: #2d3480; text-align: center; }
-.card-orig .sub { font-size: 15.5px; color: #8890c4; text-align: center; line-height: 1.4; }
+.card-orig .big-icon svg { width: 34px; height: 34px; color: #1c2333; }
+.card-orig .lbl { font-size: 18px; font-weight: 700; color: #14161d; text-align: center; }
+.card-orig .sub { font-size: 15.5px; color: #6b7280; text-align: center; line-height: 1.4; }
 
 /* ── Token/Ativo ── */
 .card-token {
@@ -70,12 +70,12 @@ body {
 .icons-row { display: flex; gap: 10px; }
 .icon-box {
   width: 50px; height: 50px;
-  background: #eef2ff; border-radius: 12px;
+  background: #eef0f3; border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 25px;
 }
-.card-token .lbl { font-size: 18px; font-weight: 700; color: #2d3480; }
-.card-token .sub { font-size: 15.5px; color: #8890c4; }
+.icon-box svg { width: 22px; height: 22px; color: #1855ff; }
+.card-token .lbl { font-size: 18px; font-weight: 700; color: #14161d; }
+.card-token .sub { font-size: 15.5px; color: #6b7280; }
 
 /* ── Investidores cluster ── */
 .card-investors {
@@ -85,11 +85,11 @@ body {
   gap: 8px; padding: 8px;
 }
 .inv-cell {
-  background: #f5f7ff; border-radius: 10px;
+  background: #f3f4f6; border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 28px;
 }
-.inv-cell:hover { background: #eaedff; }
+.inv-cell svg { width: 24px; height: 24px; color: #1c2333; }
+.inv-cell:hover { background: #e8e9ec; }
 
 /* ── Right management cards ── */
 .card-right {
@@ -102,10 +102,11 @@ body {
   width: 44px; height: 44px; flex-shrink: 0;
   border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 23px;
+  background: #eef0f3;
 }
-.card-right .r-text .r-lbl { font-size: 18px; font-weight: 700; color: #2d3480; }
-.card-right .r-text .r-sub { font-size: 15.5px; color: #8890c4; margin-top: 2px; }
+.card-right .r-icon svg { width: 20px; height: 20px; color: #4b5563; }
+.card-right .r-text .r-lbl { font-size: 18px; font-weight: 700; color: #14161d; }
+.card-right .r-text .r-sub { font-size: 15.5px; color: #6b7280; margin-top: 2px; }
 
 /* ── Engine (center main card) ── */
 .card-engine {
@@ -117,11 +118,12 @@ body {
   display: flex; align-items: center; gap: 12px; margin-bottom: 18px;
 }
 .engine-header .e-icon {
-  width: 44px; height: 44px; background: #3b5bdb22;
-  border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 24px;
+  width: 44px; height: 44px; background: #1855ff1f;
+  border-radius: 11px; display: flex; align-items: center; justify-content: center;
 }
-.engine-header .e-title { font-size: 18px; font-weight: 800; color: #1e2460; line-height: 1.25; }
-.engine-header .e-sub { font-size: 15.5px; color: #8890c4; }
+.engine-header .e-icon svg { width: 22px; height: 22px; color: #1855ff; }
+.engine-header .e-title { font-size: 18px; font-weight: 800; color: #14161d; line-height: 1.25; }
+.engine-header .e-sub { font-size: 15.5px; color: #6b7280; }
 .engine-header .e-badge {
   margin-left: auto;
   background: #dcfce7; color: #16a34a;
@@ -140,8 +142,8 @@ body {
 
 /* PU mini chart */
 .pu-chart-wrap { flex: 1; }
-.pu-label { font-size: 12.5px; font-weight: 700; color: #8890c4; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
-.pu-value { font-size: 26px; font-weight: 800; color: #1e2460; line-height: 1; margin-bottom: 7px; }
+.pu-label { font-size: 12.5px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+.pu-value { font-size: 26px; font-weight: 800; color: #14161d; line-height: 1; margin-bottom: 7px; }
 .pu-delta { font-size: 14px; font-weight: 700; color: #16a34a; }
 canvas#puChart { width: 100%; height: 56px; display: block; }
 
@@ -149,8 +151,8 @@ canvas#puChart { width: 100%; height: 56px; display: block; }
 .distrib-wrap { width: 160px; flex-shrink: 0; }
 .dist-bar-row { display: flex; flex-direction: column; gap: 6px; }
 .dist-item { }
-.dist-name { font-size: 12.5px; color: #8890c4; font-weight: 600; margin-bottom: 3px; }
-.dist-track { height: 8px; background: #eef0ff; border-radius: 4px; overflow: hidden; }
+.dist-name { font-size: 12.5px; color: #6b7280; font-weight: 600; margin-bottom: 3px; }
+.dist-track { height: 8px; background: #eef0f3; border-radius: 4px; overflow: hidden; }
 .dist-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
 
 /* ── Blockchain / Wallet strip ── */
@@ -163,28 +165,26 @@ canvas#puChart { width: 100%; height: 56px; display: block; }
 .wallet-node {
   flex: 1;
   background: #fff;
-  border: 1.5px solid rgba(180,195,245,0.4);
+  border: 1.5px solid rgba(24,85,255,0.3);
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(60,80,200,0.07);
+  box-shadow: 0 2px 10px rgba(24,85,255,0.12);
   padding: 14px 11px;
   display: flex; flex-direction: column; align-items: center; gap: 6px;
 }
-.wallet-node .w-icon { font-size: 22px; }
-.wallet-node .w-lbl { font-size: 18px; font-weight: 700; color: #2d3480; text-align: center; line-height: 1.25; }
+.wallet-node .w-icon svg { width: 19px; height: 19px; color: #3a3f4b; }
+.wallet-node .w-lbl { font-size: 18px; font-weight: 700; color: #14161d; text-align: center; line-height: 1.25; }
 .wallet-node .w-addr {
-  font-size: 15.5px; color: #a0a8d8;
+  font-size: 15.5px; color: #8b909c;
   font-family: monospace;
-  background: #f0f3ff; padding: 3px 8px; border-radius: 4px;
+  background: #f1f2f5; padding: 3px 8px; border-radius: 4px;
 }
-.wallet-node.active { border-color: rgba(59,91,219,0.35); box-shadow: 0 2px 10px rgba(59,91,219,0.12); }
-
 /* ── Port connectors ── */
 .port {
   position: absolute;
   width: 12px; height: 12px;
   border-radius: 2px;
-  background: #c7d0f8;
-  border: 2px solid #a0aee8;
+  background: #b9c2d6;
+  border: 2px solid #8791a6;
   transform: translate(-50%, -50%);
   z-index: 10;
 }
@@ -194,13 +194,13 @@ canvas#puChart { width: 100%; height: 56px; display: block; }
   position: absolute;
   width: 34px; height: 34px;
   background: #fff; border-radius: 50%;
-  border: 1.5px solid rgba(180,195,245,0.6);
-  box-shadow: 0 2px 8px rgba(60,80,200,0.12);
+  border: 1.5px solid rgba(165,169,181,0.6);
+  box-shadow: 0 2px 8px rgba(20,20,30,0.1);
   display: flex; align-items: center; justify-content: center;
-  font-size: 16px;
   transform: translate(-50%, -50%);
   z-index: 10;
 }
+.line-icon svg { width: 17px; height: 17px; color: #1855ff; }
 
 @keyframes blink {
   0%,100% { opacity: 1; }
@@ -227,7 +227,9 @@ canvas#puChart { width: 100%; height: 56px; display: block; }
 
   <!-- Originador -->
   <div class="card card-orig">
-    <div class="big-icon">🏢</div>
+    <div class="big-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v17"/><path d="M14 9h5a1 1 0 0 1 1 1v11"/><path d="M9 8h1M9 12h1M9 16h1"/><path d="M4 21h16"/></svg>
+    </div>
     <span class="lbl">Originador</span>
     <span class="sub">Emissão de ativos tokenizados</span>
   </div>
@@ -235,9 +237,9 @@ canvas#puChart { width: 100%; height: 56px; display: block; }
   <!-- Token / Ativo -->
   <div class="card card-token">
     <div class="icons-row">
-      <div class="icon-box">🪙</div>
-      <div class="icon-box">📋</div>
-      <div class="icon-box">⛓</div>
+      <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.5"/></svg></div>
+      <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="1.2"/><path d="M9 3V2.6A1 1 0 0 1 10 1.6h4a1 1 0 0 1 1 1V3"/><path d="M9 9h6M9 13h6M9 17h3"/></svg></div>
+      <div class="icon-box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 0 1 4-4h2a4 4 0 0 1 0 8h-1.5"/><path d="M15 12a4 4 0 0 1-4 4H9a4 4 0 0 1 0-8h1.5"/></svg></div>
     </div>
     <span class="lbl">Ativo Tokenizado</span>
     <span class="sub">ERC-20 · Smart Contract · On-chain</span>
@@ -245,16 +247,16 @@ canvas#puChart { width: 100%; height: 56px; display: block; }
 
   <!-- Investidores -->
   <div class="card card-investors">
-    <div class="inv-cell">👤</div>
-    <div class="inv-cell">👥</div>
-    <div class="inv-cell">🏦</div>
-    <div class="inv-cell">💼</div>
+    <div class="inv-cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.4"/><path d="M5.2 20a6.8 6.8 0 0 1 13.6 0"/></svg></div>
+    <div class="inv-cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3.3 20a5.7 5.7 0 0 1 11.4 0"/><circle cx="17" cy="9" r="2.3"/><path d="M14.6 14.3a4.6 4.6 0 0 1 6.1 4.3"/></svg></div>
+    <div class="inv-cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10 12 4l9 6"/><path d="M5 10v9M9.5 10v9M14.5 10v9M19 10v9"/><path d="M3 19h18"/></svg></div>
+    <div class="inv-cell"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="1.5"/><path d="M8.5 7V5.3A1.3 1.3 0 0 1 9.8 4h4.4a1.3 1.3 0 0 1 1.3 1.3V7"/><path d="M3 12.5h18"/></svg></div>
   </div>
 
   <!-- Engine -->
   <div class="card card-engine" id="engineCard">
     <div class="engine-header">
-      <div class="e-icon">⚙️</div>
+      <div class="e-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg></div>
       <div>
         <div class="e-title">Capitare Engine</div>
         <div class="e-sub">Gestão on-chain em tempo real</div>
@@ -277,28 +279,28 @@ canvas#puChart { width: 100%; height: 56px; display: block; }
 
   <!-- Right cards -->
   <div class="card card-right" id="cr-cal" style="top:32px;">
-    <div class="r-icon" style="background:#eef2ff">📅</div>
+    <div class="r-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="1.5"/><path d="M3 9.5h18M8 3v4M16 3v4"/><circle cx="8" cy="14.3" r="0.9" fill="currentColor" stroke="none"/><circle cx="12" cy="14.3" r="0.9" fill="currentColor" stroke="none"/></svg></div>
     <div class="r-text">
       <div class="r-lbl">Calendário de Pagamentos</div>
       <div class="r-sub">Datas, cupons e vencimentos</div>
     </div>
   </div>
   <div class="card card-right" id="cr-dist" style="top:162px;">
-    <div class="r-icon" style="background:#f0fdf4">💸</div>
+    <div class="r-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><path d="M7 11l5 5 5-5"/><path d="M4 21h16"/></svg></div>
     <div class="r-text">
       <div class="r-lbl">Distribuição de Capital</div>
       <div class="r-sub">Pro-rata por token holdings</div>
     </div>
   </div>
   <div class="card card-right" id="cr-amort" style="top:292px;">
-    <div class="r-icon" style="background:#fff7ed">📉</div>
+    <div class="r-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l7 7 4-4 7 7"/><path d="M15 17h6v-6"/></svg></div>
     <div class="r-text">
       <div class="r-lbl">Amortizações</div>
       <div class="r-sub">Price, par e extraordinary</div>
     </div>
   </div>
   <div class="card card-right" id="cr-pu" style="top:422px;">
-    <div class="r-icon" style="background:#fdf4ff">📊</div>
+    <div class="r-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><rect x="5" y="14" width="3" height="7"/><rect x="10.5" y="9" width="3" height="12"/><rect x="16" y="12" width="3" height="9"/></svg></div>
     <div class="r-text">
       <div class="r-lbl">Controle de PU</div>
       <div class="r-sub">Preço unitário on-chain</div>
@@ -307,18 +309,18 @@ canvas#puChart { width: 100%; height: 56px; display: block; }
 
   <!-- Blockchain wallet strip -->
   <div class="bc-strip" id="bcStrip">
-    <div class="wallet-node active" id="w-investor">
-      <div class="w-icon">👛</div>
+    <div class="wallet-node" id="w-investor">
+      <div class="w-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M16 12h3v3h-3a1.5 1.5 0 0 1 0-3Z"/><path d="M3 9.5h18"/></svg></div>
       <div class="w-lbl">Carteira Investidor</div>
       <div class="w-addr">0x3f4a…c9d2</div>
     </div>
     <div class="wallet-node" id="w-custody">
-      <div class="w-icon">🔐</div>
+      <div class="w-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></div>
       <div class="w-lbl">Custódia On-Chain</div>
       <div class="w-addr">0x8b12…44ef</div>
     </div>
     <div class="wallet-node" id="w-blockchain">
-      <div class="w-icon">🔗</div>
+      <div class="w-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 0 1 4-4h2a4 4 0 0 1 0 8h-1.5"/><path d="M15 12a4 4 0 0 1-4 4H9a4 4 0 0 1 0-8h1.5"/></svg></div>
       <div class="w-lbl">Nó Blockchain</div>
       <div class="w-addr">block #19.482.301</div>
     </div>
@@ -354,8 +356,8 @@ function drawPU() {
 
   // Gradient fill
   const grad = puCtx.createLinearGradient(0,0,0,h);
-  grad.addColorStop(0, 'rgba(59,91,219,0.18)');
-  grad.addColorStop(1, 'rgba(59,91,219,0)');
+  grad.addColorStop(0, 'rgba(24,85,255,0.18)');
+  grad.addColorStop(1, 'rgba(24,85,255,0)');
   puCtx.beginPath();
   puCtx.moveTo(pts[0].x, h);
   pts.forEach(p => puCtx.lineTo(p.x, p.y));
@@ -367,7 +369,7 @@ function drawPU() {
   // Line
   puCtx.beginPath();
   pts.forEach((p,i) => i === 0 ? puCtx.moveTo(p.x,p.y) : puCtx.lineTo(p.x,p.y));
-  puCtx.strokeStyle = '#3b5bdb';
+  puCtx.strokeStyle = '#1855ff';
   puCtx.lineWidth = 1.8;
   puCtx.lineJoin = 'round';
   puCtx.stroke();
@@ -376,11 +378,11 @@ function drawPU() {
   const last = pts[pts.length-1];
   puCtx.beginPath();
   puCtx.arc(last.x, last.y, 3, 0, Math.PI*2);
-  puCtx.fillStyle = '#3b5bdb';
+  puCtx.fillStyle = '#1855ff';
   puCtx.fill();
   puCtx.beginPath();
   puCtx.arc(last.x, last.y, 5, 0, Math.PI*2);
-  puCtx.fillStyle = 'rgba(59,91,219,0.2)';
+  puCtx.fillStyle = 'rgba(24,85,255,0.2)';
   puCtx.fill();
 }
 
@@ -402,10 +404,10 @@ setInterval(updatePU, 1400);
 // Distribution bars
 // ──────────────────────────────────────────────
 const DIST_ITEMS = [
-  { name: 'Juros Mensais',     color: '#3b5bdb', pct: 78 },
-  { name: 'Amortização',       color: '#0ea5e9', pct: 55 },
-  { name: 'Correção Monetária',color: '#10b981', pct: 90 },
-  { name: 'Remuneração Extra', color: '#f59e0b', pct: 40 },
+  { name: 'Juros Mensais',     color: '#1855ff', pct: 78 },
+  { name: 'Amortização',       color: '#5b7fdb', pct: 55 },
+  { name: 'Correção Monetária',color: '#8b98c9', pct: 90 },
+  { name: 'Remuneração Extra', color: '#98a1af', pct: 40 },
 ];
 const distWrap = document.getElementById('distBars');
 DIST_ITEMS.forEach(item => {
@@ -438,17 +440,15 @@ defs.innerHTML = `
     <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
   </filter>
   <marker id="dot-marker" viewBox="0 0 6 6" refX="3" refY="3" markerWidth="6" markerHeight="6">
-    <circle cx="3" cy="3" r="2.2" fill="#3b5bdb" opacity="0.5"/>
+    <circle cx="3" cy="3" r="2.2" fill="#1855ff" opacity="0.5"/>
   </marker>
 `;
 svg.prepend(defs);
 
-// Color palette
-const C_BLUE  = '#3b5bdb';
-const C_GREEN = '#10b981';
-const C_SKY   = '#0ea5e9';
-const C_AMBER = '#f59e0b';
-const C_GRAY  = '#9aa5d4';
+// Color palette — monochrome: our blue in a few shades, plus neutral grey
+const C_BLUE       = '#1855ff';
+const C_BLUE_SOFT  = '#5b7fdb';
+const C_GRAY       = '#98a1af';
 
 // ──────────────────────────────────────────────
 // Connector coordinates: measured live from the actual
@@ -493,7 +493,7 @@ const PATHS = [
   // 1. Originador right → Token left
   { d: `M ${orig.right},${orig.cy} L ${bendX1},${orig.cy} L ${bendX1},${token.cy} L ${token.left},${token.cy}`,
     color: C_BLUE, ports: [[bendX1, orig.cy],[bendX1, token.cy]],
-    icon: { x: bendX1, y: orig.cy, e: '🏢' } },
+    icon: { x: bendX1, y: orig.cy, svg: '<path d="M4 21V4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v17"/><path d="M14 9h5a1 1 0 0 1 1 1v11"/><path d="M9 8h1M9 12h1M9 16h1"/><path d="M4 21h16"/>' } },
 
   // 2. Token bottom-center → Engine top-center
   { d: `M ${token.cx},${token.bottom} L ${token.cx},${engine.top}`,
@@ -501,28 +501,28 @@ const PATHS = [
 
   // 3. Investidores right → Engine left-center
   { d: `M ${invest.right},${invest.cy} L ${engine.left},${invest.cy}`,
-    color: C_SKY, ports: [[invest.right, invest.cy],[engine.left, invest.cy]],
-    icon: { x: invest.right + (engine.left - invest.right) / 2, y: invest.cy, e: '💰' } },
+    color: C_BLUE_SOFT, ports: [[invest.right, invest.cy],[engine.left, invest.cy]],
+    icon: { x: invest.right + (engine.left - invest.right) / 2, y: invest.cy, svg: '<ellipse cx="12" cy="7" rx="7" ry="3"/><path d="M5 7v10c0 1.7 3.1 3 7 3s7-1.3 7-3V7"/><path d="M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/>' } },
 
   // 4. Investidores top → up and over → Token left
   { d: `M ${invest.cx},${invest.top} L ${invest.cx},${topBendY} L ${token.cx},${topBendY} L ${token.cx},${token.top}`,
-    color: C_SKY, ports: [[invest.cx, topBendY],[token.cx, topBendY]], icon: null },
+    color: C_BLUE_SOFT, ports: [[invest.cx, topBendY],[token.cx, topBendY]], icon: null },
 
-  // 5. Engine right → trunk
+  // 5. Engine right → Calendário (full path from the engine)
   { d: `M ${engine.right},${engine.cy} L ${trunkX},${engine.cy} L ${trunkX},${crCal.cy} L ${crCal.left},${crCal.cy}`,
-    color: C_BLUE, ports: [[trunkX, engine.cy]], icon: null },
+    color: C_BLUE, ports: [[trunkX, engine.cy],[trunkX, crCal.cy],[crCal.left, crCal.cy]], icon: null },
 
-  // 6. trunk → Distribuição
-  { d: `M ${trunkX},${crDist.cy} L ${crDist.left},${crDist.cy}`,
-    color: C_GREEN, ports: [[crDist.left, crDist.cy]], icon: null },
+  // 6. Engine right → Distribuição (full path from the engine)
+  { d: `M ${engine.right},${engine.cy} L ${trunkX},${engine.cy} L ${trunkX},${crDist.cy} L ${crDist.left},${crDist.cy}`,
+    color: C_BLUE_SOFT, ports: [[trunkX, crDist.cy],[crDist.left, crDist.cy]], icon: null },
 
-  // 7. trunk → Amortizações
-  { d: `M ${trunkX},${crAmort.cy} L ${crAmort.left},${crAmort.cy}`,
-    color: C_SKY, ports: [[crAmort.left, crAmort.cy]], icon: null },
+  // 7. Engine right → Amortizações (full path from the engine)
+  { d: `M ${engine.right},${engine.cy} L ${trunkX},${engine.cy} L ${trunkX},${crAmort.cy} L ${crAmort.left},${crAmort.cy}`,
+    color: C_BLUE_SOFT, ports: [[trunkX, crAmort.cy],[crAmort.left, crAmort.cy]], icon: null },
 
-  // 8. trunk → Controle PU
-  { d: `M ${trunkX},${crPu.cy} L ${crPu.left},${crPu.cy}`,
-    color: C_AMBER, ports: [[crPu.left, crPu.cy]], icon: null },
+  // 8. Engine right → Controle PU (full path from the engine)
+  { d: `M ${engine.right},${engine.cy} L ${trunkX},${engine.cy} L ${trunkX},${crPu.cy} L ${crPu.left},${crPu.cy}`,
+    color: C_BLUE_SOFT, ports: [[trunkX, crPu.cy],[crPu.left, crPu.cy]], icon: null },
 
   // 9. Engine bottom → Wallet nodes
   { d: `M ${wInvestor.cx},${engine.bottom} L ${wInvestor.cx},${wInvestor.top}`,
@@ -532,9 +532,6 @@ const PATHS = [
   { d: `M ${wBlockchain.cx},${engine.bottom} L ${wBlockchain.cx},${wBlockchain.top}`,
     color: C_GRAY, ports: [[wBlockchain.cx, wBlockchain.top]], icon: null },
 ];
-
-// Trunk vertical line (shared, spans the 4 right cards)
-const trunkPath = { d: `M ${trunkX},${crCal.cy} L ${trunkX},${crPu.cy}`, color: C_GRAY };
 
 function addPath(def, opts = {}) {
   const el = document.createElementNS('http://www.w3.org/2000/svg','path');
@@ -559,7 +556,6 @@ function addPath(def, opts = {}) {
   return el;
 }
 
-addPath(trunkPath);
 PATHS.forEach((def, i) => addPath(def, { delay: i * 80 }));
 
 // ── Particles ──
@@ -598,7 +594,7 @@ function makeParticle(pathDef, color, speed) {
   requestAnimationFrame(tick);
 }
 
-const particleColors = [C_BLUE, C_GREEN, C_SKY, C_BLUE, C_BLUE, C_GREEN, C_SKY, C_AMBER, C_GRAY, C_GRAY, C_GRAY];
+const particleColors = [C_BLUE, C_BLUE, C_BLUE_SOFT, C_BLUE_SOFT, C_BLUE, C_BLUE_SOFT, C_BLUE_SOFT, C_BLUE_SOFT, C_GRAY, C_GRAY, C_GRAY];
 setTimeout(() => {
   PATHS.forEach((def, i) => {
     const count = [0,1,2,3,4].includes(i) ? 2 : 1;
@@ -618,7 +614,7 @@ PATHS.forEach(def => {
     const ic = document.createElement('div');
     ic.className = 'line-icon';
     ic.style.left = def.icon.x+'px'; ic.style.top = def.icon.y+'px';
-    ic.textContent = def.icon.e;
+    ic.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${def.icon.svg}</svg>`;
     scene.appendChild(ic);
   }
 });

@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import InfrastructureLayers from "@/components/InfrastructureLayers";
+import PlatformInfrastructure from "@/components/PlatformInfrastructure";
 import RegulatoryTrust from "@/components/RegulatoryTrust";
 
 export default function Home() {
@@ -10,6 +11,7 @@ export default function Home() {
       <Hero />
       <RegulatoryTrust />
       <InfrastructureLayers />
+      <PlatformInfrastructure />
     </div>
   );
 }

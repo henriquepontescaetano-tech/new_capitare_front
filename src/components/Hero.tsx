@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import FlowEmbed from "./FlowEmbed";
 
 const solidButtonClasses =
-  "cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold transition-all bg-primary text-white hover:bg-blue0 active:bg-blue1 h-12 md:h-14 px-6 py-4 text-base md:text-lg leading-[26px] rounded-full w-full sm:w-[156px]";
+  "cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold transition-all bg-primary text-white hover:bg-blue0 active:bg-blue1 h-12 md:h-14 px-6 py-4 text-base md:text-lg leading-[26px] rounded-full w-full sm:w-auto";
 
 const outlineButtonClasses =
   "cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold transition-all border border-grey1 text-grey0 bg-background shadow-xs hover:bg-grey3 active:bg-grey0 active:text-white h-12 md:h-14 px-6 py-4 text-base md:text-lg leading-[26px] rounded-full w-full sm:w-auto";
@@ -24,11 +24,9 @@ export default function Hero() {
               transition={{ duration: 0.6, ease: EASE }}
             >
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-semibold leading-[1.1] lg:leading-[72px] text-grey0">
-                <span>Derivatives Infrastructure. </span>
+                <span>Mercado de capitais, sem a fricção </span>
                 <br />
-                <span className="text-primary text-nowrap">
-                  Built for Scale.
-                </span>
+                <span className="text-primary">do mercado de capitais.</span>
               </h1>
             </motion.div>
             <motion.p
@@ -37,8 +35,8 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: EASE, delay: 0.12 }}
             >
-              We provide the regulatory foundation, the execution layer, and
-              the liquidity all through a single integration.
+              A infraestrutura que conecta originadores e investidores com
+              menos intermediários, mais segurança e custo operacional menor.
             </motion.p>
           </div>
           <motion.div
@@ -53,7 +51,7 @@ export default function Hero() {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
-              Trade
+              Falar com a Capitare
             </motion.a>
             <motion.a
               href="#"
@@ -61,15 +59,7 @@ export default function Hero() {
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
             >
-              Read our API docs
-            </motion.a>
-            <motion.a
-              href="#"
-              className={outlineButtonClasses}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              Contact Us
+              Como funciona
             </motion.a>
           </motion.div>
         </div>
