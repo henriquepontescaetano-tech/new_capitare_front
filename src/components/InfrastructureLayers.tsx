@@ -146,8 +146,8 @@ function FunnelIcon() {
 function BlockIcon() {
   return (
     <svg
-      width="14"
-      height="14"
+      width="12"
+      height="12"
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -267,12 +267,12 @@ function EligibilityMockup({ inView }: { inView: boolean }) {
 function SettlementMockup({ inView }: { inView: boolean }) {
   return (
     <div className="flex h-full w-full flex-col items-center justify-center gap-3 p-4">
-      <div className="flex w-full items-center justify-between gap-2">
+      <div className="flex w-full items-center justify-between gap-3">
         <span className="shrink-0 text-[10px] font-semibold text-grey0 bg-white border border-grey4 rounded-full px-2 py-1">
           Ativo aprovado
         </span>
-        <div className="relative flex h-6 min-w-0 flex-1 items-center justify-center gap-2">
-          {[0, 1, 2].map((i) => (
+        <div className="relative flex h-6 min-w-8 flex-1 items-center justify-center gap-1.5 px-1">
+          {[0, 1].map((i) => (
             <BlockIcon key={i} />
           ))}
           <motion.span
