@@ -71,7 +71,7 @@ function StatColumn({ stat, index }: { stat: Stat; index: number }) {
       initial={{ opacity: 0, y: 16 }}
       animate={inView ? { opacity: 1, y: 0 } : undefined}
       transition={{ duration: 0.5, ease: EASE, delay: 0.1 + index * 0.1 }}
-      className="flex flex-col gap-1.5 sm:gap-2 items-center text-center max-w-[280px] mx-auto px-3 sm:not-first:pl-8 sm:not-last:pr-8"
+      className="flex flex-col gap-1.5 sm:gap-2 items-center text-center lg:items-start lg:text-left"
     >
       <p className="font-mono text-3xl sm:text-4xl lg:text-5xl font-bold text-grey0 tabular-nums">
         {display}
@@ -100,68 +100,53 @@ function AmbientGlow() {
   );
 }
 
-function Sheen() {
-  return (
-    <motion.div
-      className="pointer-events-none absolute inset-y-0 w-1/4"
-      style={{
-        background:
-          "linear-gradient(100deg, transparent, rgba(40,112,189,0.08), transparent)",
-      }}
-      initial={{ left: "-30%" }}
-      whileInView={{ left: "110%" }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 1.3, ease: EASE, delay: 0.5 }}
-    />
-  );
-}
-
 export default function RegulatoryTrust() {
   return (
     <section className="relative overflow-hidden bg-background py-16 sm:py-24">
       <AmbientGlow />
 
       <div className="relative px-7 md:px-13 lg:px-20">
-        <div className="max-w-[1140px] mx-auto flex flex-col items-center gap-6 sm:gap-8">
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5, ease: EASE }}
-            className="text-center text-2xl sm:text-3xl md:text-4xl font-semibold text-grey0 text-balance"
-          >
-            Infraestrutura regulada.{" "}
-            <span className="text-trust-blue">Resultado comprovado.</span>
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5, ease: EASE, delay: 0.1 }}
-            className="flex flex-col items-center gap-2"
-          >
-            <div className="inline-flex items-center gap-2">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-trust-blue opacity-70" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-trust-blue" />
-              </span>
-              <span className="text-xs font-semibold uppercase tracking-[0.14em] text-trust-blue">
-                CVM 88 · Ofertas Públicas Reguladas
-              </span>
-            </div>
-            <motion.span
-              className="h-px w-24 bg-trust-blue-light/50"
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
+        <div className="mx-auto flex max-w-[1140px] flex-col items-center gap-12 lg:flex-row lg:items-center lg:gap-16">
+          <div className="flex flex-col items-center gap-4 text-center lg:w-[380px] lg:shrink-0 lg:items-start lg:text-left">
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.6, ease: EASE, delay: 0.4 }}
-            />
-          </motion.div>
+              transition={{ duration: 0.5, ease: EASE }}
+              className="text-2xl sm:text-3xl md:text-4xl font-semibold text-grey0 text-balance"
+            >
+              Infraestrutura regulada.{" "}
+              <span className="text-trust-blue">Resultado comprovado.</span>
+            </motion.p>
 
-          <div className="relative w-full overflow-hidden border-t border-t-grey5 border-b border-b-grey5 py-9 sm:py-10 mt-2">
-            <Sheen />
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-9">
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.5, ease: EASE, delay: 0.1 }}
+              className="flex flex-col items-center gap-2 lg:items-start"
+            >
+              <div className="inline-flex items-center gap-2">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-trust-blue opacity-70" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-trust-blue" />
+                </span>
+                <span className="text-xs font-semibold uppercase tracking-[0.14em] text-trust-blue">
+                  CVM 88 · Ofertas Públicas Reguladas
+                </span>
+              </div>
+              <motion.span
+                className="h-px w-24 bg-trust-blue-light/50 origin-left"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.6, ease: EASE, delay: 0.4 }}
+              />
+            </motion.div>
+          </div>
+
+          <div className="w-full lg:border-l lg:border-grey5 lg:pl-16">
+            <div className="grid grid-cols-2 gap-x-8 gap-y-9 sm:gap-x-12">
               {STATS.map((stat, i) => (
                 <StatColumn key={stat.label} stat={stat} index={i} />
               ))}

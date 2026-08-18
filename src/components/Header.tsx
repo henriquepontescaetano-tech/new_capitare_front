@@ -5,11 +5,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 
-const NAV_LINKS = [
-  { label: "Trade", href: "#" },
-  { label: "Explorer", href: "#" },
-];
-
 const outlineButtonClasses =
   "cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-semibold transition-all border border-grey1 text-grey0 bg-background shadow-xs hover:bg-grey3 active:bg-grey0 active:text-white h-9 px-4 py-[6px] rounded-full";
 
@@ -76,23 +71,6 @@ export default function Header() {
               </motion.button>
             </div>
 
-            <div className="hidden md:flex justify-center">
-              <nav aria-label="Main">
-                <ul className="flex gap-8 items-center text-nowrap">
-                  {NAV_LINKS.map((link) => (
-                    <li key={link.label}>
-                      <a
-                        href={link.href}
-                        className="font-semibold text-grey0 text-sm rounded-sm p-2 transition-all hover:bg-grey6"
-                      >
-                        {link.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </div>
-
             <div className="gap-3 hidden md:flex justify-end">
               <motion.a
                 href="#"
@@ -124,22 +102,7 @@ export default function Header() {
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="md:hidden absolute top-full left-0 right-0 z-50 bg-background border-t border-grey5 shadow-lg px-7 py-6"
           >
-            <nav aria-label="Main mobile">
-              <ul className="flex flex-col gap-1">
-                {NAV_LINKS.map((link) => (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      onClick={() => setMenuOpen(false)}
-                      className="block font-semibold text-grey0 text-base rounded-sm px-2 py-3 transition-all hover:bg-grey6"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-            <div className="flex flex-col gap-3 mt-4">
+            <div className="flex flex-col gap-3">
               <motion.a
                 href="#"
                 onClick={() => setMenuOpen(false)}

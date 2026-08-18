@@ -4,6 +4,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
 type Product = {
+  tag: string;
   title: string;
   description: string;
   linkLabel: string;
@@ -11,18 +12,21 @@ type Product = {
 
 const PRODUCTS: Product[] = [
   {
+    tag: "CVM88",
     title: "CVM88 — White label de oferta pública",
     description:
       "Plataforma de oferta pública operando sob a marca da sua empresa. Capte equity ou dívida em rodadas reguladas pela CVM88.",
     linkLabel: "Quero captar pela minha empresa",
   },
   {
+    tag: "SCF",
     title: "SCF — Supply chain finance",
     description:
       "Opere sua própria mesa de antecipação de recebíveis em vez de pagar spread de banco. Estrutura regulatória e tecnologia ponta a ponta.",
     linkLabel: "Quero montar minha infra",
   },
   {
+    tag: "FIDC",
     title: "Ferramenta FIDC",
     description:
       "Alternativa ao FIDC tradicional. Estruture fundos menores ou reduza o custo de administração, com taxa menor e governança preservada.",
@@ -44,7 +48,7 @@ const solidButtonClasses =
 const outlineOnDarkClasses =
   "cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold transition-all border border-white/25 text-white hover:bg-white/10 h-11 px-6 text-sm rounded-full";
 
-function PlatformMockup() {
+function PlatformMockup({ activeTag }: { activeTag?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
@@ -54,7 +58,7 @@ function PlatformMockup() {
       initial={{ opacity: 0, y: 24, scale: 0.97 }}
       animate={inView ? { opacity: 1, y: 0, scale: 1 } : undefined}
       transition={{ duration: 0.6, ease: EASE }}
-      className="relative mx-auto w-full max-w-[440px]"
+      className="relative mx-auto w-full max-w-[560px]"
     >
       <div className="rounded-xl overflow-hidden bg-white shadow-2xl">
         <div className="flex items-center gap-1.5 bg-grey6 px-3 py-2.5 border-b border-grey5">
@@ -80,35 +84,45 @@ function PlatformMockup() {
         </div>
 
         <div className="flex flex-col gap-2.5 p-4">
-          {OFFERS.map((offer, i) => (
-            <motion.div
-              key={offer.name}
-              initial={{ opacity: 0, x: -10 }}
-              animate={inView ? { opacity: 1, x: 0 } : undefined}
-              transition={{ duration: 0.4, ease: EASE, delay: 0.3 + i * 0.1 }}
-              className="rounded-lg border border-grey5 p-3"
-            >
-              <div className="flex items-center justify-between gap-2 mb-1.5">
-                <span className="text-xs font-semibold text-grey0 truncate">
-                  {offer.name}
-                </span>
-                <span className="shrink-0 font-mono text-[10px] text-primary">
-                  {offer.rate}
-                </span>
-              </div>
-              <div className="h-1.5 rounded-full bg-grey6 overflow-hidden">
-                <motion.div
-                  className="h-full rounded-full bg-primary"
-                  initial={{ width: "0%" }}
-                  animate={inView ? { width: `${offer.progress}%` } : undefined}
-                  transition={{ duration: 0.6, ease: EASE, delay: 0.5 + i * 0.1 }}
-                />
-              </div>
-              <div className="mt-1 text-[9px] text-grey7">
-                {offer.tag} · captação {offer.progress}%
-              </div>
-            </motion.div>
-          ))}
+          {OFFERS.map((offer, i) => {
+            const isActive = activeTag ? offer.tag === activeTag : false;
+            const neutral = !activeTag;
+            return (
+              <motion.div
+                key={offer.name}
+                initial={{ opacity: 0, x: -10 }}
+                animate={inView ? { opacity: 1, x: 0 } : undefined}
+                transition={{ duration: 0.4, ease: EASE, delay: 0.3 + i * 0.1 }}
+                className={`rounded-lg border p-3 transition-all duration-300 ${
+                  neutral
+                    ? "border-grey5"
+                    : isActive
+                      ? "border-primary bg-blue3 shadow-[0_0_0_3px_rgba(24,85,255,0.1)]"
+                      : "border-grey5 opacity-50"
+                }`}
+              >
+                <div className="flex items-center justify-between gap-2 mb-1.5">
+                  <span className="text-xs font-semibold text-grey0 truncate">
+                    {offer.name}
+                  </span>
+                  <span className="shrink-0 font-mono text-[10px] text-primary">
+                    {offer.rate}
+                  </span>
+                </div>
+                <div className="h-1.5 rounded-full bg-grey6 overflow-hidden">
+                  <motion.div
+                    className="h-full rounded-full bg-primary"
+                    initial={{ width: "0%" }}
+                    animate={inView ? { width: `${offer.progress}%` } : undefined}
+                    transition={{ duration: 0.6, ease: EASE, delay: 0.5 + i * 0.1 }}
+                  />
+                </div>
+                <div className="mt-1 text-[9px] text-grey7">
+                  {offer.tag} · captação {offer.progress}%
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
 
@@ -129,17 +143,17 @@ function PlatformMockup() {
   );
 }
 
-function ProductRow({ product, index }: { product: Product; index: number }) {
+function ProductColumn({ product, index }: { product: Product; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, x: 16 }}
-      animate={inView ? { opacity: 1, x: 0 } : undefined}
+      initial={{ opacity: 0, y: 16 }}
+      animate={inView ? { opacity: 1, y: 0 } : undefined}
       transition={{ duration: 0.5, ease: EASE, delay: index * 0.12 }}
-      className="flex gap-4 py-6 first:pt-0 last:pb-0"
+      className="flex flex-col gap-3"
     >
       <motion.span
         initial={{ scale: 0 }}
@@ -151,37 +165,33 @@ function ProductRow({ product, index }: { product: Product; index: number }) {
           stiffness: 320,
           damping: 18,
         }}
-        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-white"
+        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-white"
       >
         {index + 1}
       </motion.span>
-      <div>
-        <h3 className="text-lg font-semibold text-white mb-1.5">
-          {product.title}
-        </h3>
-        <p className="text-sm leading-relaxed text-white/60 mb-3">
-          {product.description}
-        </p>
-        <a
-          href="#"
-          className="inline-flex items-center gap-1 text-sm font-semibold text-trust-blue-light hover:text-white transition-colors"
+      <h3 className="text-base font-semibold text-white">{product.title}</h3>
+      <p className="text-sm leading-relaxed text-white/60">
+        {product.description}
+      </p>
+      <a
+        href="#"
+        className="inline-flex items-center gap-1 text-sm font-semibold text-trust-blue-light hover:text-white transition-colors"
+      >
+        {product.linkLabel}
+        <svg
+          width="15"
+          height="15"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
         >
-          {product.linkLabel}
-          <svg
-            width="15"
-            height="15"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <path d="m9 18 6-6-6-6" />
-          </svg>
-        </a>
-      </div>
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </a>
     </motion.div>
   );
 }
@@ -234,11 +244,16 @@ export default function PlatformInfrastructure() {
               </motion.div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-16 items-center">
+            <div className="flex flex-col items-center gap-14 lg:gap-16">
               <PlatformMockup />
-              <div className="flex flex-col divide-y divide-white/10">
+              <div className="grid w-full grid-cols-1 gap-10 divide-y divide-white/10 sm:grid-cols-3 sm:gap-8 sm:divide-y-0 sm:divide-x">
                 {PRODUCTS.map((product, i) => (
-                  <ProductRow key={product.title} product={product} index={i} />
+                  <div
+                    key={product.title}
+                    className="pt-10 first:pt-0 sm:px-8 sm:pt-0 sm:first:pl-0 sm:last:pr-0"
+                  >
+                    <ProductColumn product={product} index={i} />
+                  </div>
                 ))}
               </div>
             </div>

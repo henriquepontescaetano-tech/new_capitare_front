@@ -14,60 +14,64 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 export default function Hero() {
   return (
     <section className="px-7 md:px-13 lg:px-20">
-      <div className="flex items-center w-full max-w-[1140px] m-auto flex-col md:flex-row md:gap-5">
-        <div className="flex flex-col gap-10 md:w-[45%] z-10 pt-12 pb-6 sm:pt-20 md:!py-37">
-          <div className="flex flex-col gap-4 items-center md:items-start">
-            <motion.div
-              className="text-center md:items-start md:text-start"
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: EASE }}
-            >
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-semibold leading-[1.1] lg:leading-[72px] text-grey0">
-                <span>Mercado de capitais, sem a fricção </span>
-                <br />
-                <span className="text-primary">do mercado de capitais.</span>
-              </h1>
-            </motion.div>
-            <motion.p
-              className="text-xl text-grey2 leading-8 text-center md:text-start w-[80%] md:w-[98%]"
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: EASE, delay: 0.12 }}
-            >
-              A infraestrutura que conecta originadores e investidores com
-              menos intermediários, mais segurança e custo operacional menor.
-            </motion.p>
-          </div>
+      <div className="flex w-full max-w-[1140px] flex-col items-center gap-10 m-auto pt-12 pb-8 sm:pt-20 sm:pb-10 text-center">
+        <div className="flex flex-col gap-4 items-center">
           <motion.div
-            className="flex w-full flex-col sm:flex-row justify-center md:justify-start gap-4"
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: EASE, delay: 0.24 }}
+            transition={{ duration: 0.6, ease: EASE }}
           >
-            <motion.a
-              href="#"
-              className={solidButtonClasses}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              Falar com a Capitare
-            </motion.a>
-            <motion.a
-              href="#"
-              className={outlineButtonClasses}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              Como funciona
-            </motion.a>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-semibold leading-[1.1] lg:leading-[72px] text-grey0">
+              <span>O Pix fez isso com o dinheiro, nós </span>
+              <br />
+              <span className="text-primary">
+                estamos fazendo isso com o crédito.
+              </span>
+            </h1>
           </motion.div>
+          <motion.p
+            className="text-xl text-grey2 leading-8 max-w-[600px]"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: EASE, delay: 0.12 }}
+          >
+            A infraestrutura que conecta originadores e investidores com
+            menos intermediários, mais segurança e custo operacional menor.
+          </motion.p>
         </div>
-
-        <div className="w-[calc(100%+3.5rem)] -mx-7 md:w-[55%] md:mx-0 sm:max-md:mb-6 md:max-lg:mb-20 md:translate-x-5 xl:translate-y-3">
-          <FlowEmbed />
-        </div>
+        <motion.div
+          className="flex w-full flex-col sm:flex-row justify-center gap-4"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: EASE, delay: 0.24 }}
+        >
+          <motion.a
+            href="#"
+            className={solidButtonClasses}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+          >
+            Falar com a Capitare
+          </motion.a>
+          <motion.a
+            href="#"
+            className={outlineButtonClasses}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+          >
+            Como funciona
+          </motion.a>
+        </motion.div>
       </div>
+
+      <motion.div
+        className="w-full max-w-[1140px] m-auto pb-12 sm:pb-20"
+        initial={{ opacity: 0, y: 32 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: EASE, delay: 0.3 }}
+      >
+        <FlowEmbed />
+      </motion.div>
     </section>
   );
 }

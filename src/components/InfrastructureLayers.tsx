@@ -306,98 +306,75 @@ function SettlementMockup({ inView }: { inView: boolean }) {
 
 const MOCKUPS = [DataMockup, EligibilityMockup, SettlementMockup];
 
-function LayerCard({ layer, index }: { layer: Layer; index: number }) {
+function TimelineRow({
+  layer,
+  index,
+  isLast,
+}: {
+  layer: Layer;
+  index: number;
+  isLast: boolean;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const numeral = useScramble(layer.numeral, inView);
   const Mockup = MOCKUPS[index];
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={inView ? { opacity: 1, y: 0 } : undefined}
-      transition={{ duration: 0.5, ease: EASE, delay: 0.1 + index * 0.12 }}
-      whileHover={{ y: -4 }}
-      className={`flex flex-col rounded-2xl border border-trust-blue-light/25 bg-white shadow-[0_4px_24px_-8px_rgba(40,112,189,0.15)] p-2 transition-shadow ${
-        index === 2 ? "trace-border" : ""
-      }`}
-    >
-      <div className="relative shrink-0 h-[170px] sm:h-[190px] lg:h-[210px] rounded-xl bg-grey6 overflow-hidden">
-        <Mockup inView={inView} />
+    <div ref={ref} className="relative flex gap-5 sm:gap-8">
+      <div className="relative flex shrink-0 flex-col items-center">
+        <motion.div
+          initial={{ scale: 0.6, opacity: 0 }}
+          animate={inView ? { scale: 1, opacity: 1 } : undefined}
+          transition={{
+            duration: 0.4,
+            ease: EASE,
+            type: "spring",
+            stiffness: 320,
+            damping: 20,
+          }}
+          className="relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-trust-blue bg-white font-mono text-xs font-bold text-trust-blue sm:h-12 sm:w-12 sm:text-sm"
+        >
+          {numeral}
+        </motion.div>
+        {!isLast && (
+          <div className="relative w-px flex-1 overflow-hidden bg-grey4">
+            <motion.div
+              className="absolute inset-x-0 top-0 w-px bg-trust-blue"
+              style={{ transformOrigin: "top" }}
+              initial={{ scaleY: 0 }}
+              animate={inView ? { scaleY: 1 } : undefined}
+              transition={{ duration: 0.6, ease: EASE, delay: 0.3 }}
+            />
+          </div>
+        )}
       </div>
-      <div className="px-4 pt-4 pb-5 sm:px-5">
-        <div className="flex items-center gap-2 mb-2">
-          <span className="font-mono text-xs font-semibold text-trust-blue tabular-nums">
-            {numeral}
-          </span>
-          <span className="h-3 w-px bg-grey4" />
+
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={inView ? { opacity: 1, y: 0 } : undefined}
+        transition={{ duration: 0.5, ease: EASE, delay: 0.1 }}
+        className="grid flex-1 grid-cols-1 gap-5 pb-12 sm:grid-cols-[220px_1fr] sm:gap-8 lg:grid-cols-[260px_1fr]"
+      >
+        <div
+          className={`relative h-[160px] shrink-0 overflow-hidden rounded-xl bg-grey6 sm:h-[180px] ${
+            index === 2 ? "trace-border" : ""
+          }`}
+        >
+          <Mockup inView={inView} />
+        </div>
+        <div>
           <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-grey7">
             {layer.eyebrow}
           </span>
+          <h3 className="mt-1.5 mb-2 text-lg font-semibold text-grey0 sm:text-xl">
+            {layer.title}
+          </h3>
+          <p className="text-sm leading-relaxed text-grey2 sm:text-[15px]">
+            {layer.description}
+          </p>
         </div>
-        <h3 className="text-lg sm:text-xl font-semibold text-grey0 mb-2">
-          {layer.title}
-        </h3>
-        <p className="text-sm sm:text-[15px] leading-relaxed text-grey2">
-          {layer.description}
-        </p>
-      </div>
-    </motion.div>
-  );
-}
-
-function ConnectorRail() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
-  return (
-    <div ref={ref} className="hidden lg:block relative h-10 mb-4">
-      <div className="absolute inset-x-[16.666%] top-1/2 h-px bg-grey4" />
-      <motion.div
-        className="absolute inset-x-[16.666%] top-1/2 h-px bg-trust-blue"
-        style={{ transformOrigin: "left" }}
-        initial={{ scaleX: 0 }}
-        animate={inView ? { scaleX: 1 } : undefined}
-        transition={{ duration: 1, ease: EASE, delay: 0.2 }}
-      />
-      <motion.span
-        className="absolute top-1/2 z-20 h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-trust-blue shadow-[0_0_8px_rgba(40,112,189,0.65)]"
-        initial={{ left: "16.666%", opacity: 0 }}
-        animate={
-          inView
-            ? {
-                left: ["16.666%", "83.333%"],
-                opacity: [0, 1, 1, 0],
-              }
-            : undefined
-        }
-        transition={{
-          duration: 2.2,
-          delay: 1.6,
-          repeat: Infinity,
-          repeatDelay: 0.6,
-          ease: "easeInOut",
-        }}
-      />
-      <div className="absolute inset-0 z-10 grid grid-cols-3">
-        {[0, 1, 2].map((i) => (
-          <div key={i} className="relative flex items-center justify-center">
-            <motion.span
-              className="h-2.5 w-2.5 rounded-full bg-trust-blue ring-4 ring-background"
-              initial={{ scale: 0 }}
-              animate={inView ? { scale: 1 } : undefined}
-              transition={{
-                duration: 0.35,
-                delay: 0.2 + i * 0.5,
-                type: "spring",
-                stiffness: 400,
-                damping: 20,
-              }}
-            />
-          </div>
-        ))}
-      </div>
+      </motion.div>
     </div>
   );
 }
@@ -461,11 +438,14 @@ export default function InfrastructureLayers() {
             </motion.p>
           </div>
 
-          <ConnectorRail />
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6">
+          <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
             {LAYERS.map((layer, i) => (
-              <LayerCard key={layer.numeral} layer={layer} index={i} />
+              <TimelineRow
+                key={layer.numeral}
+                layer={layer}
+                index={i}
+                isLast={i === LAYERS.length - 1}
+              />
             ))}
           </div>
         </div>

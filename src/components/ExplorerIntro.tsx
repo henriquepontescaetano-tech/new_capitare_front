@@ -90,7 +90,13 @@ const EXPLORER_ROWS: ExplorerRow[] = [
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-function FeatureRow({ feature, index }: { feature: Feature; index: number }) {
+const solidButtonClasses =
+  "cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold transition-all bg-primary text-white hover:bg-blue0 active:bg-blue1 h-11 px-6 text-sm rounded-full";
+
+const outlineOnDarkClasses =
+  "cursor-pointer inline-flex items-center justify-center gap-2 whitespace-nowrap font-semibold transition-all border border-white/25 text-white hover:bg-white/10 h-11 px-6 text-sm rounded-full";
+
+function FeatureColumn({ feature, index }: { feature: Feature; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
@@ -99,18 +105,27 @@ function FeatureRow({ feature, index }: { feature: Feature; index: number }) {
       ref={ref}
       initial={{ opacity: 0, y: 16 }}
       animate={inView ? { opacity: 1, y: 0 } : undefined}
-      transition={{ duration: 0.45, ease: EASE, delay: index * 0.1 }}
-      className="flex flex-col gap-1.5 text-left"
+      transition={{ duration: 0.5, ease: EASE, delay: index * 0.12 }}
+      className="flex flex-col gap-3"
     >
-      <div className="flex items-center gap-3">
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center text-trust-blue-light">
-          <span className="h-5 w-5">{feature.icon}</span>
-        </span>
-        <p className="text-lg font-semibold leading-[26px] text-white">
-          {feature.title}
-        </p>
-      </div>
-      <p className="text-white/60">{feature.description}</p>
+      <motion.span
+        initial={{ scale: 0 }}
+        animate={inView ? { scale: 1 } : undefined}
+        transition={{
+          duration: 0.35,
+          delay: index * 0.12 + 0.1,
+          type: "spring",
+          stiffness: 320,
+          damping: 18,
+        }}
+        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-white"
+      >
+        {index + 1}
+      </motion.span>
+      <h3 className="text-base font-semibold text-white">{feature.title}</h3>
+      <p className="text-sm leading-relaxed text-white/60">
+        {feature.description}
+      </p>
     </motion.div>
   );
 }
@@ -143,7 +158,7 @@ function ExplorerMockup() {
       initial={{ opacity: 0, y: 24, scale: 0.97 }}
       animate={inView ? { opacity: 1, y: 0, scale: 1 } : undefined}
       transition={{ duration: 0.6, ease: EASE }}
-      className="relative mx-auto w-full max-w-[480px]"
+      className="relative mx-auto w-full max-w-[560px]"
     >
       <div className="overflow-hidden rounded-xl bg-white shadow-2xl">
         <div className="flex items-center gap-1.5 border-b border-grey5 bg-grey6 px-3 py-2.5">
@@ -221,64 +236,72 @@ export default function ExplorerIntro() {
     <section className="bg-background py-16 sm:py-24">
       <div className="px-7 md:px-13 lg:px-20">
         <div className="max-w-[1140px] mx-auto">
-          <div className="rounded-2xl bg-grey0 px-6 py-10 sm:px-10 lg:px-[70px] lg:py-16">
-            <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-2 lg:gap-16">
-              <div className="flex flex-col items-center gap-6 text-center lg:items-start lg:text-left">
-                <motion.div
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-80px" }}
-                  transition={{ duration: 0.4, ease: EASE }}
-                  className="flex h-8 items-center justify-center rounded-full bg-primary px-4 text-sm font-semibold text-white"
-                >
-                  Em breve
-                </motion.div>
+          <div className="rounded-2xl bg-grey0 px-6 sm:px-10 lg:px-[70px] py-10 lg:py-16">
+            <div className="max-w-2xl mx-auto text-center mb-14 lg:mb-20">
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.4, ease: EASE }}
+                className="mx-auto mb-5 flex h-8 w-fit items-center justify-center rounded-full bg-primary px-4 text-sm font-semibold text-white"
+              >
+                Em breve
+              </motion.div>
 
-                <motion.h2
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-80px" }}
-                  transition={{ duration: 0.5, ease: EASE, delay: 0.05 }}
-                  className="text-3xl sm:text-4xl md:text-5xl font-semibold text-white"
-                >
-                  Apresentando o{" "}
-                  <span className="text-trust-blue-light">Explorer</span>.
-                </motion.h2>
+              <motion.h2
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.5, ease: EASE, delay: 0.05 }}
+                className="text-3xl sm:text-4xl md:text-5xl font-semibold text-white text-balance"
+              >
+                Apresentando o{" "}
+                <span className="text-trust-blue-light">Explorer</span>.
+              </motion.h2>
 
-                <motion.p
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-80px" }}
-                  transition={{ duration: 0.5, ease: EASE, delay: 0.1 }}
-                  className="text-lg leading-[26px] text-white/60"
-                >
-                  Acompanhe cada recebível, cada liquidação e cada trilha
-                  auditável da Capitare — em tempo real, direto na blockchain.
-                </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.5, ease: EASE, delay: 0.1 }}
+                className="mt-4 text-lg text-white/60 leading-relaxed"
+              >
+                Acompanhe cada recebível e cada liquidação da Capitare em
+                tempo real,{" "}
+                <strong className="text-white font-semibold">
+                  com tudo auditável do dado até a blockchain.
+                </strong>
+              </motion.p>
 
-                <div className="mt-4 flex w-full flex-col gap-8">
-                  {FEATURES.map((feature, i) => (
-                    <FeatureRow
-                      key={feature.title}
-                      feature={feature}
-                      index={i}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              <ExplorerMockup />
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.5, ease: EASE, delay: 0.2 }}
+                className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-8"
+              >
+                <a href="#" className={solidButtonClasses}>
+                  Falar com a Capitare
+                </a>
+                <a href="#" className={outlineOnDarkClasses}>
+                  Como funciona
+                </a>
+              </motion.div>
             </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, ease: EASE, delay: 0.15 }}
-              className="mx-auto mt-12 w-fit max-w-full rounded-full border border-primary bg-primary/10 px-6 py-2 text-center text-base sm:text-lg font-semibold text-trust-blue-light"
-            >
-              Do dado à liquidação. Tudo auditável, direto na Capitare.
-            </motion.div>
+            <div className="flex flex-col items-center gap-14 lg:gap-16">
+              <ExplorerMockup />
+              <div className="grid w-full grid-cols-1 gap-10 divide-y divide-white/10 sm:grid-cols-3 sm:gap-8 sm:divide-y-0 sm:divide-x">
+                {FEATURES.map((feature, i) => (
+                  <div
+                    key={feature.title}
+                    className="pt-10 first:pt-0 sm:px-8 sm:pt-0 sm:first:pl-0 sm:last:pr-0"
+                  >
+                    <FeatureColumn feature={feature} index={i} />
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
