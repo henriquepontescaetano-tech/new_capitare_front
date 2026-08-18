@@ -266,37 +266,34 @@ function EligibilityMockup({ inView }: { inView: boolean }) {
 
 function SettlementMockup({ inView }: { inView: boolean }) {
   return (
-    <div className="flex h-full w-full flex-col items-center justify-center gap-3 p-4">
-      <div className="flex w-full items-center gap-2">
-        <span className="min-w-0 shrink truncate text-[10px] font-semibold text-grey0 bg-white border border-grey4 rounded-full px-2 py-1">
-          Ativo aprovado
-        </span>
-        <div className="relative flex h-6 w-10 shrink-0 items-center justify-center gap-1.5">
-          {[0, 1].map((i) => (
-            <BlockIcon key={i} />
-          ))}
-          <motion.span
-            className="absolute top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full bg-trust-blue"
-            style={{ left: 0 }}
-            initial={{ left: "0%" }}
-            animate={inView ? { left: ["0%", "100%"] } : undefined}
-            transition={{
-              duration: 1.6,
-              repeat: Infinity,
-              ease: "linear",
-              delay: 0.3,
-            }}
-          />
-        </div>
-        <span className="min-w-0 shrink truncate text-[10px] font-semibold text-white bg-trust-blue rounded-full px-2 py-1">
-          Tomador recebe
-        </span>
+    <div className="flex h-full w-full flex-col items-center justify-center gap-2 p-4">
+      <span className="whitespace-nowrap text-[10px] font-semibold text-grey0 bg-white border border-grey4 rounded-full px-2.5 py-1">
+        Ativo aprovado
+      </span>
+      <div className="relative flex h-7 w-5 items-center justify-center">
+        <div className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-grey4" />
+        <BlockIcon />
+        <motion.span
+          className="absolute left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-trust-blue"
+          style={{ top: 0 }}
+          initial={{ top: "0%" }}
+          animate={inView ? { top: ["0%", "100%"] } : undefined}
+          transition={{
+            duration: 1.3,
+            repeat: Infinity,
+            ease: "linear",
+            delay: 0.3,
+          }}
+        />
       </div>
+      <span className="whitespace-nowrap text-[10px] font-semibold text-white bg-trust-blue rounded-full px-2.5 py-1">
+        Tomador recebe
+      </span>
       <motion.p
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : undefined}
         transition={{ duration: 0.3, delay: 0.5 }}
-        className="text-[10px] text-grey7 line-through decoration-grey7/60"
+        className="mt-1 text-[10px] text-grey7 line-through decoration-grey7/60"
       >
         Custódia intermediária
       </motion.p>
