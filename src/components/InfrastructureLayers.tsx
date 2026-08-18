@@ -267,11 +267,11 @@ function EligibilityMockup({ inView }: { inView: boolean }) {
 function SettlementMockup({ inView }: { inView: boolean }) {
   return (
     <div className="flex h-full w-full flex-col items-center justify-center gap-3 p-4">
-      <div className="flex w-full items-center justify-between gap-3">
-        <span className="shrink-0 text-[10px] font-semibold text-grey0 bg-white border border-grey4 rounded-full px-2 py-1">
+      <div className="flex w-full items-center gap-2">
+        <span className="min-w-0 shrink truncate text-[10px] font-semibold text-grey0 bg-white border border-grey4 rounded-full px-2 py-1">
           Ativo aprovado
         </span>
-        <div className="relative flex h-6 min-w-8 flex-1 items-center justify-center gap-1.5 px-1">
+        <div className="relative flex h-6 w-10 shrink-0 items-center justify-center gap-1.5">
           {[0, 1].map((i) => (
             <BlockIcon key={i} />
           ))}
@@ -288,7 +288,7 @@ function SettlementMockup({ inView }: { inView: boolean }) {
             }}
           />
         </div>
-        <span className="shrink-0 text-[10px] font-semibold text-white bg-trust-blue rounded-full px-2 py-1">
+        <span className="min-w-0 shrink truncate text-[10px] font-semibold text-white bg-trust-blue rounded-full px-2 py-1">
           Tomador recebe
         </span>
       </div>
@@ -357,13 +357,13 @@ function TimelineRow({
         className="grid flex-1 grid-cols-1 gap-5 pb-12 sm:grid-cols-[220px_1fr] sm:gap-8 lg:grid-cols-[260px_1fr]"
       >
         <div
-          className={`relative h-[160px] shrink-0 overflow-hidden rounded-xl bg-grey6 sm:h-[180px] ${
+          className={`relative order-2 h-[160px] shrink-0 overflow-hidden rounded-xl bg-grey6 sm:order-1 sm:h-[180px] ${
             index === 2 ? "trace-border" : ""
           }`}
         >
           <Mockup inView={inView} />
         </div>
-        <div>
+        <div className="order-1 sm:order-2">
           <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-grey7">
             {layer.eyebrow}
           </span>
